@@ -32,7 +32,7 @@ export default async function Page() {
   console.log("Customer Page fechAPISICC",customersSICC);
   return (
     <main>
-      <CustomersTable customers={customersSICC.map((customer) => ({
+      <CustomersTable customers={customersSICC.map((customer: any) => ({
         ...customer,
         email: "",
         image_url: "",
