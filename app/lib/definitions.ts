@@ -15,6 +15,21 @@ export type Customer = {
   email: string;
   image_url: string;
 };
+export type CustomerSICC = {
+  id: number;
+  status: string; 
+  name: string;
+  urlSlug: string;
+  CUIT: string;
+  calle: string;
+  nro: number;
+  piso: string;
+  dpto: string;
+  contacto: string;
+  mail: string;
+  tel: string;
+  mailNotif: string;
+};
 
 export type Invoice = {
   id: string;
@@ -66,13 +81,19 @@ export type CustomersTableType = {
 };
 
 export type FormattedCustomersTable = {
-  id: string;
+  id: number;
+  status: string; 
   name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
+  urlSlug: string;
+  CUIT: string;
+  calle: string;
+  nro: number;
+  piso: string;
+  dpto: string;
+  contacto: string;
+  mail: string;
+  tel: string;
+  mailNotif: string;
 };
 
 export type CustomerField = {

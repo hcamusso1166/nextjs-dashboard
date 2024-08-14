@@ -182,7 +182,18 @@ export async function fetchCustomers() {
     throw new Error('Failed to fetch all customers.');
   }
 }
+export async function fetchCustomersSICC() {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes");
+    const data = await res.json();
 
+    const customersSICC = data.data;
+    return customersSICC;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
 export async function fetchFilteredCustomers(query: string) {
   try {
     const data = await sql<CustomersTableType>`
