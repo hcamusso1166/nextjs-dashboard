@@ -194,6 +194,18 @@ export async function fetchCustomersSICC() {
     throw new Error('Failed to fetch all customers.');
   }
 }
+export async function fetchDocRequeridosProveedor() {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.id&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    const data = await res.json();
+
+    const docRequeridosProveedor = data.data;
+    return docRequeridosProveedor;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
 export async function fetchFilteredCustomers(query: string) {
   try {
     const data = await sql<CustomersTableType>`

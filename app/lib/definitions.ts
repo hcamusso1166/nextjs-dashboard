@@ -95,6 +95,18 @@ export type FormattedCustomersTable = {
   tel: string;
   mailNotif: string;
 };
+export type FormattedDocsRequeridosProvTable = {
+  id: number;
+  status: string;
+  validezDias: number;
+  fechaPresentacion: string;
+  archivo: string;
+  proximaFechaPresentacion: string;
+  idProveedor: {id :number, nombre: string};
+  
+  idParametro: {id:number, idTipoEntidad:{nombreEntidad: string}, idTipoDocumento:{nombreDocumento: string}};
+
+};
 
 export type CustomerField = {
   id: string;
