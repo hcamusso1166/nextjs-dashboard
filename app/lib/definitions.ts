@@ -107,6 +107,27 @@ export type FormattedDocsRequeridosProvTable = {
   idParametro: {id:number, idTipoEntidad:{nombreEntidad: string}, idTipoDocumento:{nombreDocumento: string}};
 
 };
+export type FormDocsReqPersonasT = {
+  id: number;
+  archivo: string;
+  fechaPresentacion: string;
+  proximaFechaPresentacion: string;
+  validezDias: number;
+  status: string;
+  idPersona: {nombre: string, idProveedor: {nombre: string}};
+  idParametro: {idTipoEntidad:{nombreEntidad: string}, idTipoDocumento:{nombreDocumento: string}};
+};
+
+export type FormDocsReqVehT = {
+  id: number;
+  archivo: string;
+  fechaPresentacion: string;
+  proximaFechaPresentacion: string;
+  validezDias: number;
+  status: string;
+  idVehiculo: {dominio: string, idProveedor: {nombre: string}};
+  idParametro: {idTipoEntidad:{nombreEntidad: string}, idTipoDocumento:{nombreDocumento: string}};
+};
 
 export type CustomerField = {
   id: string;

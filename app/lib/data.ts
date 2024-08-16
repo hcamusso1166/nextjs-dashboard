@@ -206,6 +206,30 @@ export async function fetchDocRequeridosProveedor() {
     throw new Error('Failed to fetch all customers.');
   }
 }
+export async function fetchDocReqPersonas() {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    const data = await res.json();
+
+    const docReqPersonas = data.data;
+    return docReqPersonas;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all Req Personas.');
+  }
+}
+export async function fetchDocReqVehiculos() {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    const data = await res.json();
+
+    const docReqVehiculos = data.data;
+    return docReqVehiculos;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all Req Vehiculos.');
+  }
+}
 export async function fetchFilteredCustomers(query: string) {
   try {
     const data = await sql<CustomersTableType>`

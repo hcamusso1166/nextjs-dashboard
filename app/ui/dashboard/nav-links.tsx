@@ -24,9 +24,17 @@ const links = [
     name: 'Customers', 
     href: '/dashboard/customers', 
     icon: UserGroupIcon },
+  { 
+    name: 'DocReqProv', 
+    href: '/dashboard/docsRequeridosProv', 
+    icon: DocumentIcon },
     { 
-      name: 'DocReqProv', 
-      href: '/dashboard/docsRequeridosProv', 
+      name: 'DocReqPer', 
+      href: '/dashboard/docsReqPersonas', 
+      icon: UserGroupIcon },
+    { 
+      name: 'DocReqVeh', 
+      href: '/dashboard/docsReqVehiculos', 
       icon: DocumentIcon },
 ];
 
