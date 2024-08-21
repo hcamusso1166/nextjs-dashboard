@@ -182,9 +182,14 @@ export async function fetchCustomers() {
     throw new Error('Failed to fetch all customers.');
   }
 }
-export async function fetchCustomersSICC() {
+export async function fetchCustomersSICC(
+  query: string,
+  currentPage: number,
+) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes");
+   
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name&search="+query);
+
     const data = await res.json();
 
     const customersSICC = data.data;
