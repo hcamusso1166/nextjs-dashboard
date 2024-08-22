@@ -187,11 +187,8 @@ export async function fetchCustomersSICC(
   currentPage: number,
 ) {
   try {
-   
     const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name&search="+query);
-
     const data = await res.json();
-
     const customersSICC = data.data;
     return customersSICC;
   } catch (err) {
@@ -199,9 +196,16 @@ export async function fetchCustomersSICC(
     throw new Error('Failed to fetch all customers.');
   }
 }
-export async function fetchDocRequeridosProveedor() {
+export async function fetchDocRequeridosProveedor(
+  query: string,
+  currentPage: number,
+) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.id&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    console.log("fetch",query);
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
+    /*
+https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento&filter[idProveedor][nombre][_eq]="+query
+    */
     const data = await res.json();
 
     const docRequeridosProveedor = data.data;

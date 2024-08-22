@@ -1,27 +1,26 @@
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
-import Search from '@/app/ui/search';
-import {
-    FormattedDocsRequeridosProvTable,
-} from '@/app/lib/definitions';
+import { FormattedDocsRequeridosProvTable,} from '@/app/lib/definitions';
+import { fetchDocRequeridosProveedor } from "@/app/lib/data"; 
+
 
 export default async function DocsRequeridosProvTable({
-    docsRequeridos,
+  query,
+  currentPage,
 }: {
-    docsRequeridos: FormattedDocsRequeridosProvTable[];
+  query: string;
+  currentPage: number;
 }) {
+  const docsRequeridos = await fetchDocRequeridosProveedor(query , currentPage);
+  console.log ("Aqui", docsRequeridos);
   return (
-    <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
-        Documentos Requeridos a Proveedor
-      </h1>
-      <Search placeholder="Buscar Proveedor..." />
+
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
               <div className="md:hidden">
-                {docsRequeridos?.map((docs) => (
+                {docsRequeridos?.map((docs: FormattedDocsRequeridosProvTable) => (
                   <div
                     key={docs.id}
                     className="mb-2 w-full rounded-md bg-white p-4"
@@ -88,7 +87,7 @@ export default async function DocsRequeridosProvTable({
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 text-gray-900">
-                  {docsRequeridos.map((docs) => (
+                  {docsRequeridos.map((docs: FormattedDocsRequeridosProvTable) => (
                     <tr key={docs.id} className="group">
                       <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                         <div className="flex items-center gap-3">
@@ -125,6 +124,6 @@ export default async function DocsRequeridosProvTable({
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
