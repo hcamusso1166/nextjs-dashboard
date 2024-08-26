@@ -215,9 +215,12 @@ https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,v
     throw new Error('Failed to fetch all customers.');
   }
 }
-export async function fetchDocReqPersonas() {
+export async function fetchDocReqPersonas(
+  query: string,
+  currentPage: number,
+) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
     const data = await res.json();
 
     const docReqPersonas = data.data;
@@ -227,9 +230,12 @@ export async function fetchDocReqPersonas() {
     throw new Error('Failed to fetch all Req Personas.');
   }
 }
-export async function fetchDocReqVehiculos() {
+export async function fetchDocReqVehiculos(
+  query: string,
+  currentPage: number,
+) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento");
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
     const data = await res.json();
 
     const docReqVehiculos = data.data;

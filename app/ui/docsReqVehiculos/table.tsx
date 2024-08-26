@@ -1,27 +1,24 @@
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
-import {
-    FormDocsReqVehT,
-} from '@/app/lib/definitions';
+import { FormDocsReqVehT } from '@/app/lib/definitions';
+import { fetchDocReqVehiculos } from '@/app/lib/data';
 
 export default async function DocsReqVehiculosT({
-    docsReqVehiculos,
+  query,
+  currentPage,
 }: {
-    docsReqVehiculos: FormDocsReqVehT[];
+  query: string;
+  currentPage: number;
 }) {
+  const docsReqVehiculos = await fetchDocReqVehiculos(query , currentPage);
     return (
-        <div className="w-full">
-            <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
-                Documentos Requeridos a Vehiculos
-            </h1>
-            <Search placeholder="Buscar Vehiculo..." />
             <div className="mt-6 flow-root">
                 <div className="overflow-x-auto">
                     <div className="inline-block min-w-full align-middle">
                         <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
                             <div className="md:hidden">
-                                {docsReqVehiculos?.map((docs) => (
+                                {docsReqVehiculos?.map((docs: FormDocsReqVehT) => (
                                     <div
                                         key={docs.id}
                                         className="mb-2 w-full rounded-md bg-white p-4"
@@ -78,7 +75,7 @@ export default async function DocsReqVehiculosT({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-gray-900">
-                  {docsReqVehiculos.map((docs) => (
+                  {docsReqVehiculos?.map((docs: FormDocsReqVehT) => (
                     <tr key={docs.id} className="group">
                         <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                         <div className="flex items-center gap-3">
@@ -119,6 +116,5 @@ export default async function DocsReqVehiculosT({
           </div>                          
         </div>
       </div>
-    </div>
   );
 }

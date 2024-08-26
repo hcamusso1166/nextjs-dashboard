@@ -87,7 +87,7 @@ export default async function DocsRequeridosProvTable({
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 text-gray-900">
-                  {docsRequeridos.map((docs: FormattedDocsRequeridosProvTable) => (
+                  {docsRequeridos?.map((docs: FormattedDocsRequeridosProvTable) => (
                     <tr key={docs.id} className="group">
                       <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                         <div className="flex items-center gap-3">
