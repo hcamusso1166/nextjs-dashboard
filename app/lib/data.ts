@@ -183,9 +183,7 @@ export async function fetchCustomers() {
   }
 }
 export async function fetchCustomersSICC(
-  query: string,
-  currentPage: number,
-) {
+  query: string) {
   try {
     const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name&search="+query);
     const data = await res.json();
@@ -202,10 +200,7 @@ export async function fetchDocRequeridosProveedor(
 ) {
   try {
     console.log("fetch",query);
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
-    /*
-https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento&filter[idProveedor][nombre][_eq]="+query
-    */
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
     const data = await res.json();
 
     const docRequeridosProveedor = data.data;
@@ -215,16 +210,47 @@ https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,v
     throw new Error('Failed to fetch all customers.');
   }
 }
+export async function fetchDocsReqProvPages(
+  query: string) {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento&aggregate[count]=*"+query);
+   
+    const data = await res.json();
+    const count = data.data[0];
+    const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
+    console.log("count.count",count.count,"totalPages",totalPages);
+    return totalPages;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
+
+
 export async function fetchDocReqPersonas(
   query: string,
   currentPage: number,
 ) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre,idPersona.apellido&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
     const data = await res.json();
 
     const docReqPersonas = data.data;
     return docReqPersonas;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all Req Personas.');
+  }
+}
+export async function fetchDocReqPersonasPages(
+  query: string) {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosPersonas?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idPersona.nombre,idPersona.apellido&fields=idPersona.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento&aggregate[count]=*"+query);
+    const data = await res.json();
+    const count = data.data[0];
+    const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
+    console.log("count.count",count.count,"totalPages",totalPages);
+    return totalPages;
   } catch (err) {
     console.error('Error en la conexion a la API:', err);
     throw new Error('Failed to fetch all Req Personas.');
@@ -235,11 +261,26 @@ export async function fetchDocReqVehiculos(
   currentPage: number,
 ) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query);
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
     const data = await res.json();
 
     const docReqVehiculos = data.data;
     return docReqVehiculos;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch all Req Vehiculos.');
+  }
+}
+export async function fetchDocReqVehiculosPages(
+  query: string) {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/documentosRequeridosVehiculos?fields=id,archivo,fechaPresentacion,proximaFechaPresentacion,validezDias,status&fields=idVehiculo.dominio&fields=idVehiculo.idProveedor.nombre&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento&aggregate[count]=*"+query);
+   
+    const data = await res.json();
+    const count = data.data[0];
+    const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
+    console.log("count.count",count.count,"totalPages",totalPages);
+    return totalPages;
   } catch (err) {
     console.error('Error en la conexion a la API:', err);
     throw new Error('Failed to fetch all Req Vehiculos.');

@@ -1,6 +1,8 @@
 import Search from '@/app/ui/search';
 import DocsReqPersonasTable from "@/app/ui/docsReqPersonas/table";
 import { CreateInvoice } from '@/app/ui/invoices/buttons';
+import { fetchDocReqPersonasPages } from '@/app/lib/data';
+import Pagination from '@/app/ui/invoices/pagination';
 import { lusitana } from "@/app/ui/fonts";
 import { Suspense } from 'react';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
@@ -17,7 +19,7 @@ export default async function Page(  {
   const filterquery = searchParams?.query || '';
   const query = filterquery? filter + filterquery : '';
   const currentPage = Number(searchParams?.page) || 1;
-  console.log("page.tsx",query, currentPage);
+  const totalPages = await fetchDocReqPersonasPages(query);
 
 
   
@@ -34,7 +36,7 @@ export default async function Page(  {
         <DocsReqPersonasTable query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );   

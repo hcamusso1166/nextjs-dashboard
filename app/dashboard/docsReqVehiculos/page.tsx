@@ -1,5 +1,7 @@
 import Search from '@/app/ui/search';
 import DocsReqVehiculosT from "@/app/ui/docsReqVehiculos/table";
+import { fetchDocReqVehiculosPages } from '@/app/lib/data';
+import Pagination from '@/app/ui/invoices/pagination';
 import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from "@/app/ui/fonts";
 import { Suspense } from 'react';
@@ -17,7 +19,8 @@ export default async function Page(  {
     const filterquery = searchParams?.query || '';
     const query = filterquery? filter + filterquery : '';
     const currentPage = Number(searchParams?.page) || 1;
-    
+    const totalPages = await fetchDocReqVehiculosPages(query);
+
     return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -31,7 +34,7 @@ export default async function Page(  {
         <DocsReqVehiculosT query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   ); 

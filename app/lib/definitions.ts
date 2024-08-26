@@ -114,7 +114,7 @@ export type FormDocsReqPersonasT = {
   proximaFechaPresentacion: string;
   validezDias: number;
   status: string;
-  idPersona: {nombre: string, idProveedor: {nombre: string}};
+  idPersona: {nombre: string, apellido: string, idProveedor: {nombre: string}};
   idParametro: {idTipoEntidad:{nombreEntidad: string}, idTipoDocumento:{nombreDocumento: string}};
 };
 

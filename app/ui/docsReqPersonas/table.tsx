@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { FormDocsReqPersonasT,} from '@/app/lib/definitions';
@@ -28,6 +28,11 @@ export default async function DocsReqPersonasT({
                                                 <div className="mb-2 flex items-center">
                                                     <div className="flex items-center gap-3">
                                                         <p>{docs.idPersona.nombre}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="mb-2 flex items-center">
+                                                    <div className="flex items-center gap-3">
+                                                        <p>{docs.idPersona.apellido}</p>
                                                     </div>
                                                 </div>
                                                 <p className="text-sm text-gray-500">
@@ -98,6 +103,9 @@ export default async function DocsReqPersonasT({
                       <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                         <div className="flex items-center gap-3">
                           <p>{docs.idPersona.nombre}</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <p>{docs.idPersona.apellido}</p>
                         </div>
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
