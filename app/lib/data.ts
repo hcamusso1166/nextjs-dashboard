@@ -183,15 +183,30 @@ export async function fetchCustomers() {
   }
 }
 export async function fetchCustomersSICC(
-  query: string) {
+  query: string,
+  currentPage: number,) {
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name&search="+query);
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
     const data = await res.json();
     const customersSICC = data.data;
     return customersSICC;
   } catch (err) {
     console.error('Error en la conexion a la API:', err);
     throw new Error('Failed to fetch all customers.');
+  }
+}
+export async function fetchCustomersPages(
+  query: string) {
+  try {
+    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name&aggregate[count]=*"+query);
+    const data = await res.json();
+    const count = data.data[0];
+    const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
+    console.log("count.count",count.count,"totalPages",totalPages);
+    return totalPages;
+  } catch (err) {
+    console.error('Error en la conexion a la API:', err);
+    throw new Error('Failed to fetch total of all customers.');
   }
 }
 export async function fetchDocRequeridosProveedor(
