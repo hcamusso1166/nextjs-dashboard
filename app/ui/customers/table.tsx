@@ -12,12 +12,8 @@ export default async function CustomersTable({
   query: string;
   currentPage: number;
 }) {
-  console.log(query, currentPage);
   const customersSICC = await fetchCustomersSICC(query , currentPage);
-  console.log (customersSICC);
-
-
-  return (
+   return (
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">

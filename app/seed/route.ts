@@ -106,5 +106,20 @@ export async function GET() {
     message:
       'This endpoint is used to seed the database. It should not be used in production.',
   });
+}
 
-   }
+export async function POST() {
+  try {
+    const insertedUsers = await seedUsers();
+    const insertedCustomers = await seedCustomers();
+    const insertedInvoices = await seedInvoices();
+    const insertedRevenue = await seedRevenue();
+
+    return Response.json({
+      message: `Inserted ${insertedUsers.length} users, ${insertedCustomers.length} customers, ${insertedInvoices.length} invoices and ${insertedRevenue.length} revenue records.`,
+    });
+  } catch (error) {
+    console.error('Error seeding database:', error);
+    return new Response('Error seeding database', { status: 500 });
+  }
+}

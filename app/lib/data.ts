@@ -14,13 +14,9 @@ export async function fetchRevenue() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    console.log('Fetching revenue data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    console.log('Data fetch completed after 3 seconds.');
-
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
@@ -205,7 +201,6 @@ export async function fetchCustomersPages(
     console.log("count.count",count.count,"totalPages",totalPages);
     return totalPages;
   } catch (err) {
-    console.error('Error en la conexion a la API:', err);
     throw new Error('Failed to fetch total of all customers.');
   }
 }
@@ -214,7 +209,6 @@ export async function fetchDocRequeridosProveedor(
   currentPage: number,
 ) {
   try {
-    console.log("fetch",query);
     const res = await fetch("https://vps-4233212-x.dattaweb.com/items/DocumentosRequeridos?fields=id,status,validezDias,idProveedor,idParametro,fechaPresentacion,archivo,proximaFechaPresentacion&fields=idProveedor.nombre&fields=idParametro.id&fields=idParametro.idTipoEntidad.nombreEntidad&fields=idParametro.idTipoDocumento.nombreDocumento"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
     const data = await res.json();
 
@@ -233,7 +227,6 @@ export async function fetchDocsReqProvPages(
     const data = await res.json();
     const count = data.data[0];
     const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
-    console.log("count.count",count.count,"totalPages",totalPages);
     return totalPages;
   } catch (err) {
     console.error('Error en la conexion a la API:', err);
@@ -267,7 +260,6 @@ export async function fetchDocReqPersonasPages(
     console.log("count.count",count.count,"totalPages",totalPages);
     return totalPages;
   } catch (err) {
-    console.error('Error en la conexion a la API:', err);
     throw new Error('Failed to fetch all Req Personas.');
   }
 }
@@ -294,7 +286,6 @@ export async function fetchDocReqVehiculosPages(
     const data = await res.json();
     const count = data.data[0];
     const totalPages = Math.ceil(Number(count.count) / ITEMS_PER_PAGE);
-    console.log("count.count",count.count,"totalPages",totalPages);
     return totalPages;
   } catch (err) {
     console.error('Error en la conexion a la API:', err);
