@@ -12,7 +12,6 @@ export default async function DocsRequeridosProvTable({
   currentPage: number;
 }) {
   const docsRequeridos = await fetchDocRequeridosProveedor(query , currentPage);
-  console.log ("Aqui", docsRequeridos);
   return (
 
       <div className="mt-6 flow-root">
