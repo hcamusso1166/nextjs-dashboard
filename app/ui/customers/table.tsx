@@ -2,7 +2,7 @@
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import { FormattedCustomersTable } from '@/app/lib/definitions';
-import { fetchCustomersSICC } from "@/app/lib/data"; 
+import { fetchCustomers } from "@/app/lib/data"; 
 import { CustomerSICC } from '@/app/lib/definitions';
 
 export default async function CustomersTable({
@@ -12,7 +12,22 @@ export default async function CustomersTable({
   query: string;
   currentPage: number;
 }) {
-  const customersSICC = await fetchCustomersSICC(query , currentPage);
+  const customersRaw = await fetchCustomers();
+  const customersSICC: CustomerSICC[] = customersRaw.map((customer: any) => ({
+    id: customer.id,
+    name: customer.name,
+    mail: customer.mail,
+    status: customer.status ?? '',
+    urlSlug: customer.urlSlug ?? '',
+    CUIT: customer.CUIT ?? '',
+    calle: customer.calle ?? '',
+    nro: customer.nro ?? '',
+    piso: customer.piso ?? '',
+    dpto: customer.dpto ?? '',
+    contacto: customer.contacto ?? '',
+    tel: customer.tel ?? '',
+    mailNotif: customer.mailNotif ?? '',
+  }));
    return (
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">

@@ -178,19 +178,48 @@ export async function fetchCustomers() {
     throw new Error('Failed to fetch all customers.');
   }
 }
-export async function fetchCustomersSICC(
-  query: string,
-  currentPage: number,) {
+export async function getCustomers(query = "", currentPage = 1) {
+  const url = `https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name${query || ""}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`
   try {
-    const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes?sort=name"+query+"&page="+currentPage+"&limit="+ITEMS_PER_PAGE);
-    const data = await res.json();
-    const customersSICC = data.data;
-    return customersSICC;
+    const res = await fetch(url)
+    if (!res.ok) throw new Error("Error al obtener clientes")
+    const data = await res.json()
+    return data.data
   } catch (err) {
-    console.error('Error en la conexion a la API:', err);
-    throw new Error('Failed to fetch all customers.');
+    console.error("Error al hacer fetch de clientes:", err)
+    return []
   }
 }
+
+export async function createCustomer(data: any) {
+  const res = await fetch("https://vps-4233212-x.dattaweb.com/items/Clientes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+  return res.json()
+}
+
+export async function updateCustomer(id: number, data: any) {
+  const res = await fetch(`https://vps-4233212-x.dattaweb.com/items/Clientes/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+  return res.json()
+}
+
+export async function deleteCustomer(id: number) {
+  const res = await fetch(`https://vps-4233212-x.dattaweb.com/items/Clientes/${id}`, {
+    method: "DELETE",
+  })
+  return res.ok
+}
+
 export async function fetchCustomersPages(
   query: string) {
   try {
